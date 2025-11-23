@@ -20,12 +20,18 @@ const staggerContainer: Variants = {
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
+  const assetMap = import.meta.glob('/src/assets/**/*.{jpg,jpeg,png,gif,webp,avif,mp4,webm,ogg}', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  }) as Record<string, string>;
+  const url = (p: string) => assetMap[p] ?? p;
   const photos = useMemo(
     () => [
-      { src: 'src/assets/grok-video-288ebb50-e096-4bc3-b9ef-ca3bf0d4fd7e.mp4', type: 'video', caption: 'Te amo mi vida' },
-      { src: 'src/assets/Gemini_Generated_Image_27ws6827ws6827ws.png', type: 'image', caption: 'Gracias por haber llegado a mi vida' },
-      { src: 'src/assets/grok-video-a51ed8f5-200e-4fe3-8cb4-ccb84b738592.mp4', type: 'video', caption: 'Cada momento vivido es magico' },
-      { src: 'src/assets/Gemini_Generated_Image_6ydrfq6ydrfq6ydr (1).webp', type: 'image', caption: 'Que nuestro amor perdure por siempre' },
+      { src: url('/src/assets/grok-video-288ebb50-e096-4bc3-b9ef-ca3bf0d4fd7e.mp4'), type: 'video', caption: 'Te amo mi vida' },
+      { src: url('/src/assets/Gemini_Generated_Image_27ws6827ws6827ws.png'), type: 'image', caption: 'Gracias por haber llegado a mi vida' },
+      { src: url('/src/assets/grok-video-a51ed8f5-200e-4fe3-8cb4-ccb84b738592.mp4'), type: 'video', caption: 'Cada momento vivido es magico' },
+      { src: url('/src/assets/Gemini_Generated_Image_6ydrfq6ydrfq6ydr (1).webp'), type: 'image', caption: 'Que nuestro amor perdure por siempre' },
     ],
     []
   );
@@ -61,12 +67,13 @@ function App() {
   );
 
   const overlayOverrides = useMemo(() => {
-    const mods = import.meta.glob('./assets/**/*.{jpg,jpeg,png,webp,avif}', {
+    const mods = import.meta.glob('/src/assets/**/*.{jpg,jpeg,png,webp,avif}', {
       eager: true,
-      as: 'url',
+      query: '?url',
+      import: 'default',
     }) as Record<string, string>;
-    const tattoo = mods['./assets/tattoo.png'] || mods['./assets/tattoo.webp'] || mods['./assets/tattoo.jpg'];
-    const target = Object.entries(mods).find(([p]) => p.endsWith('Gemini_Generated_Image_yoh7byoh7byoh7by.png'))?.[1];
+    const tattoo = mods['/src/assets/tattoo.png'] || mods['/src/assets/tattoo.webp'] || mods['/src/assets/tattoo.jpg'];
+    const target = mods['/src/assets/Gemini_Generated_Image_yoh7byoh7byoh7by.png'];
     const map: Record<string, string> = {};
     if (tattoo && target) map[target] = tattoo;
     return map;
@@ -74,15 +81,15 @@ function App() {
 
   const viewerList = useMemo(
     () => [
-      { src: 'src/assets/Gemini_Generated_Image_yoh7byoh7byoh7by.png', type: 'image', caption: 'Tu sonrisa es mi paz' },
-      { src: 'src/assets/grok-video-288ebb50-e096-4bc3-b9ef-ca3bf0d4fd7e.mp4', type: 'video', caption: 'Cada día te elijo' },
-      { src: 'src/assets/Gemini_Generated_Image_4xx9hh4xx9hh4xx9.jpg', type: 'image', caption: 'Eres mi hogar' },
-      { src: 'src/assets/Gemini_Generated_Image_6ydrfq6ydrfq6ydr (1).webp', type: 'image', caption: 'Mi siempre, tú' },
-      { src: 'src/assets/Gemini_Generated_Image_9lgevt9lgevt9lge.png', type: 'image', caption: 'Contigo todo es mejor' },
-      { src: 'src/assets/Gemini_Generated_Image_evudhnevudhnevud (1).png', type: 'image', caption: 'Tu mirada, mi cielo' },
-      { src: 'src/assets/WhatsApp Image 2025-11-22 at 11.30.44 PM (3).jpeg', type: 'image', caption: 'Amarte es mi destino' },
-      { src: 'src/assets/WhatsApp-Image-2025-11-22-at-11.30.42-PM.webp', type: 'image', caption: 'Tu voz, mi calma' },
-      { src: 'src/assets/WhatsApp-Image-2025-11-22-at-11.30.43-PM-_3_.webp', type: 'image', caption: 'Para siempre juntos' },
+      { src: url('/src/assets/Gemini_Generated_Image_yoh7byoh7byoh7by.png'), type: 'image', caption: 'Tu sonrisa es mi paz' },
+      { src: url('/src/assets/grok-video-288ebb50-e096-4bc3-b9ef-ca3bf0d4fd7e.mp4'), type: 'video', caption: 'Cada día te elijo' },
+      { src: url('/src/assets/Gemini_Generated_Image_4xx9hh4xx9hh4xx9.jpg'), type: 'image', caption: 'Eres mi hogar' },
+      { src: url('/src/assets/Gemini_Generated_Image_6ydrfq6ydrfq6ydr (1).webp'), type: 'image', caption: 'Mi siempre, tú' },
+      { src: url('/src/assets/Gemini_Generated_Image_9lgevt9lgevt9lge.png'), type: 'image', caption: 'Contigo todo es mejor' },
+      { src: url('/src/assets/Gemini_Generated_Image_evudhnevudhnevud (1).png'), type: 'image', caption: 'Tu mirada, mi cielo' },
+      { src: url('/src/assets/WhatsApp Image 2025-11-22 at 11.30.44 PM (3).jpeg'), type: 'image', caption: 'Amarte es mi destino' },
+      { src: url('/src/assets/WhatsApp-Image-2025-11-22-at-11.30.42-PM.webp'), type: 'image', caption: 'Tu voz, mi calma' },
+      { src: url('/src/assets/WhatsApp-Image-2025-11-22-at-11.30.43-PM-_3_.webp'), type: 'image', caption: 'Para siempre juntos' },
     ],
     []
   );
