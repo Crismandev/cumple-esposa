@@ -39,24 +39,6 @@ function App() {
   const prev = () => setIndex((i) => (i - 1 + photos.length) % photos.length);
   const next = () => setIndex((i) => (i + 1) % photos.length);
 
-  const allImages = useMemo(() => {
-    const modules = import.meta.glob('./assets/**/*.{jpg,jpeg,png,gif,webp,avif,mp4,webm,ogg}', {
-      eager: true,
-      as: 'url',
-    }) as Record<string, string>;
-    return Object.entries(modules)
-      .sort((a, b) => a[0].localeCompare(b[0]))
-      .map(([path, url]) => {
-        const name = path.split('/').pop() ?? 'Foto';
-        const caption = name
-          .replace(/\.[^.]+$/, '')
-          .replace(/[-_]+/g, ' ')
-          .replace(/\b\w/g, (c) => c.toUpperCase());
-        const ext = (path.split('.').pop() || '').toLowerCase();
-        const type = /^(mp4|webm|ogg)$/.test(ext) ? 'video' : 'image';
-        return { src: url, caption, type };
-      });
-  }, []);
   const loveQuotes = useMemo(
     () => [
       'Tu sonrisa es mi paz',
