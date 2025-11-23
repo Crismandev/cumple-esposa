@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #0f172a; /* Un azul oscuro profundo y elegante */
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.romance-gradient {
+  background: radial-gradient(60rem 40rem at 10% 0%, rgba(244, 63, 94, 0.15), transparent 60%),
+              radial-gradient(50rem 30rem at 90% 100%, rgba(99, 102, 241, 0.15), transparent 60%),
+              radial-gradient(30rem 20rem at 50% 50%, rgba(255, 255, 255, 0.06), transparent 60%);
+}
+
+.romance-overlay {
+  background: radial-gradient(70rem 50rem at 10% 0%, rgba(244, 63, 94, 0.25), transparent 60%),
+              radial-gradient(60rem 40rem at 90% 100%, rgba(99, 102, 241, 0.25), transparent 60%),
+              radial-gradient(40rem 30rem at 50% 50%, rgba(255, 255, 255, 0.08), transparent 60%);
+}
